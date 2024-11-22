@@ -1,5 +1,5 @@
 import rest from './rest';
-import { SpellType } from '@/types/spell.type';
+import { SpellType, ItemType, ChampionType } from '@/types';
 
 // 최근 패치 버전을 가져오는 API
 async function getCurrentPatchVersion(): Promise<number[]> {
@@ -20,21 +20,21 @@ async function getSpellsInfo(version: number): Promise<SpellType> {
 }
 
 // 모든 아이템 정보를 가져오는 API
-async function getItemsInfo(version: number): Promise<any> {
+async function getItemsInfo(version: number): Promise<ItemType> {
   const response = await rest.get(`/data-dragon/cdn/${version}/data/ko_KR/item.json`);
   if (response.status === 200) {
     return response.data;
   }
-  return [];
+  return {} as ItemType;
 }
 
 // 모든 챔피언 정보를 가져오는 API
-async function getChampionsInfo(version: number): Promise<any> {
+async function getChampionsInfo(version: number): Promise<ChampionType> {
   const response = await rest.get(`/data-dragon/cdn/${version}/data/ko_KR/champion.json`);
   if (response.status === 200) {
     return response.data;
   }
-  return [];
+  return {} as ChampionType;
 }
 
 // 특정 챔피언 정보를 가져오는 API

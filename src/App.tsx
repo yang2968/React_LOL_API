@@ -1,27 +1,35 @@
 import { useEffect, useState } from 'react';
-
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import api from '@/apis';
+import useSpellStore from '@/hooks/useSpellStore';
 
-function App() {
-  const [count, setCount] = useState(0);
+import Test from '@/views/Test';
+import Spell from '@/views/Spell/Spell';
+
+const App = () => {
+  const setSpell = useSpellStore((state) => state.setSpell);
 
   const fetchGameData = async () => {
     try {
       // 1. 패치 버전 가져오기
       const patchVersionData = await api.getCurrentPatchVersion();
-      const currentVersion = patchVersionData[0];
+      if (patchVersionData.length > 0) {
+        const currentVersion = patchVersionData[0];
 
-      // 2. 스펠 정보 가져오기
-      const spellsData = await api.getSpellsInfo(currentVersion);
-      console.log(spellsData);
+        // 2. 스펠 정보 가져오기
+        const spellsData = await api.getSpellsInfo(currentVersion);
+        console.log(spellsData);
+        setSpell(spellsData);
 
-      // 3. 아이템 정보 가져오기
-      const itemsData = await api.getItemsInfo(currentVersion);
-      console.log(itemsData);
+        // 3. 아이템 정보 가져오기
+        const itemsData = await api.getItemsInfo(currentVersion);
+        console.log(itemsData);
 
-      // 4. 챔피언 정보 가져오기
-      const championsData = await api.getChampionsInfo(currentVersion);
-      console.log(championsData);
+        // 4. 챔피언 정보 가져오기
+        const championsData = await api.getChampionsInfo(currentVersion);
+        console.log(championsData);
+        console.log(championsData.data['Aatrox']);
+      }
     } catch (error) {
       console.error('Error fetching game data:', error);
     }
@@ -88,33 +96,18 @@ function App() {
     // let filterData = data.filter((item) => item.name == 'Congo');
     // console.log(filterData);
   }, []);
-
   return (
-    <>
-      <div>
-        <a href='https://vite.dev' target='_blank'>
-          {/* <img src={viteLogo} className="logo" alt="Vite logo" /> */}
-        </a>
-        <a href='https://react.dev' target='_blank'>
-          {/* <img src={reactLogo} className="logo react" alt="React logo" /> */}
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className='card'>
-        <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className='read-the-docs'>Click on the Vite and React logos to learn more</p>
-    </>
+    <BrowserRouter
+      future={{
+        v7_startTransition: true,
+        v7_relativeSplatPath: true,
+      }}>
+      <Routes>
+        <Route path='/' element={<Test />} />
+        <Route path='/spell' element={<Spell />} />
+      </Routes>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;

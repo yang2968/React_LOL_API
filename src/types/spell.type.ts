@@ -1,5 +1,5 @@
 // 스펠 정보 타입
-export type SpellType = {
+type SpellType = {
   type: string;
   version: string;
   data: {
@@ -7,7 +7,7 @@ export type SpellType = {
   };
 };
 
-export type SpellDataType = {
+type SpellDataType = {
   id: string;
   name: string;
   description: string;
@@ -39,3 +39,5 @@ export type SpellDataType = {
   };
   resource: string;
 };
+
+export { SpellType, SpellDataType };
