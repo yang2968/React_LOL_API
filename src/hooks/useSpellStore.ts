@@ -1,4 +1,4 @@
-import { create, useStore } from 'zustand';
+import { create } from 'zustand';
 import { SpellType } from '../types/spell.type';
 
 interface StoreState {

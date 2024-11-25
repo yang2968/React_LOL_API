@@ -152,9 +152,9 @@ type ItemType = {
   type: string;
   version: string;
   basic: BasicItem;
-  data: { [key: string]: ItemData };
+  data: { [key: number]: ItemData };
   groups: ItemGroup[];
   tree: ItemTree[];
 };
 
-export { ItemType };
+export { ItemType, ItemData };

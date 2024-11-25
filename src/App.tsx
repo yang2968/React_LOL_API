@@ -1,13 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { ThemeProvider } from '@mui/material/styles';
+import theme from '@/styles/theme';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import api from '@/apis';
-import useSpellStore from '@/hooks/useSpellStore';
+import { useSpellStore, useItemStore, useVersionStore, useChampionStore } from '@/hooks';
 
 import Test from '@/views/Test';
-import Spell from '@/views/Spell/Spell';
+import Spells from '@/views/Spells/Spells';
+import Items from '@/views/Items/Items';
+import Champions from '@/views/Champions/Champions';
 
 const App = () => {
   const setSpell = useSpellStore((state) => state.setSpell);
+  const setItem = useItemStore((state) => state.setItem);
+  const setVersion = useVersionStore((state) => state.setVersion);
+  const setChampion = useChampionStore((state) => state.setChampion);
 
   const fetchGameData = async () => {
     try {
@@ -15,7 +22,7 @@ const App = () => {
       const patchVersionData = await api.getCurrentPatchVersion();
       if (patchVersionData.length > 0) {
         const currentVersion = patchVersionData[0];
-
+        setVersion(currentVersion);
         // 2. 스펠 정보 가져오기
         const spellsData = await api.getSpellsInfo(currentVersion);
         console.log(spellsData);
@@ -24,11 +31,12 @@ const App = () => {
         // 3. 아이템 정보 가져오기
         const itemsData = await api.getItemsInfo(currentVersion);
         console.log(itemsData);
+        setItem(itemsData);
 
         // 4. 챔피언 정보 가져오기
         const championsData = await api.getChampionsInfo(currentVersion);
         console.log(championsData);
-        console.log(championsData.data['Aatrox']);
+        setChampion(championsData);
       }
     } catch (error) {
       console.error('Error fetching game data:', error);
@@ -97,16 +105,20 @@ const App = () => {
     // console.log(filterData);
   }, []);
   return (
-    <BrowserRouter
-      future={{
-        v7_startTransition: true,
-        v7_relativeSplatPath: true,
-      }}>
-      <Routes>
-        <Route path='/' element={<Test />} />
-        <Route path='/spell' element={<Spell />} />
-      </Routes>
-    </BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <BrowserRouter
+        future={{
+          v7_startTransition: true,
+          v7_relativeSplatPath: true,
+        }}>
+        <Routes>
+          <Route path='/' element={<Test />} />
+          <Route path='/spells' element={<Spells />} />
+          <Route path='/items' element={<Items />} />
+          <Route path='/champions' element={<Champions />} />
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 };
 

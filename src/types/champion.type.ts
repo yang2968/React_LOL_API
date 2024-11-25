@@ -44,16 +44,16 @@ interface ChampionStats {
 }
 
 // 챔피언 전체 데이터 인터페이스
-interface Champion {
+interface ChampionData {
   version: string;
   id: string;
   key: string;
-  name: string;
-  title: string;
-  blurb: string;
+  name: string; // 챔피언 이름
+  title: string; // 챔피언 별명
+  blurb: string; // 챔피언 설명
   info: ChampionInfo;
   image: ChampionImage;
-  tags: string[];
+  tags: string[]; // 챔피언 분류 태그
   partype: string;
   stats: ChampionStats;
 }
@@ -63,7 +63,7 @@ type ChampionType = {
   type: string;
   format: string;
   version: string;
-  data: { [key: string]: Champion };
+  data: { [key: string]: ChampionData };
 };
 
-export { ChampionType };
+export { ChampionType, ChampionData };

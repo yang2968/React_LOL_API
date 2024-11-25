@@ -16,5 +16,8 @@
       "@utils/*": ["src/utils/*"],
       "@views/*": ["src/views/*"]
     }
-  }
+  },
+  "tsx": {
+    "esm": true
+  },
 }

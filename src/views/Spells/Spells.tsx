@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react';
 import { Box, Typography, Button, TextField, Select, MenuItem, FormControl, Stack } from '@mui/material';
-import useSpellStore from '@/hooks/useSpellStore';
+import { useVersionStore, useSpellStore } from '@/hooks';
 import { SpellDataType } from '@/types/spell.type';
 
 const Spell = () => {
+  const version = useVersionStore((state) => state.version);
   const spellData = useSpellStore((state) => state.spell);
 
   const [spells, setSpells] = useState<{ [key: string]: SpellDataType }>(null);
 
   useEffect(() => {
-    if (spellData) {
+    if (version && spellData) {
       // 제외할 스펠 목록
       const excludedSpells = [
         'Summoner_UltBookSmitePlaceholder', // TBD 및 공격-강타
@@ -38,7 +39,7 @@ const Spell = () => {
             <Stack key={spell}>
               <img
                 style={{ width: '50px', height: '50px' }}
-                src={`https://ddragon.leagueoflegends.com/cdn/14.23.1/img/spell/${spells[spell].id}.png`}
+                src={`${import.meta.env.VITE_DATA_DRAGON_URL}/cdn/${version}/img/spell/${spells[spell].id}.png`}
                 alt={spells[spell].name}
               />
               <Box>{spells[spell].name}</Box>
