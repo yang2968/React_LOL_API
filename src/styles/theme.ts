@@ -1,44 +1,39 @@
 import { createTheme } from '@mui/material/styles';
 
-const theme = createTheme({
-    palette: {
-        primary: {
-            main: '#4c94a4',
-            light: '#72b7c5',
-            dark: '#336b75',
-            contrastText: '#ffffff',
-        },
-        secondary: {
-            main: '#ffb74d',
-            light: '#ffe97d',
-            dark: '#c88719',
-            contrastText: '#000000',
-        },
-        error: {
-            main: '#f44336',
-            light: '#e57373',
-            dark: '#d32f2f',
-            contrastText: '#ffffff',
-        },
-        warning: {
-            main: '#ff9800',
-            light: '#ffc947',
-            dark: '#c66900',
-            contrastText: '#ffffff',
-        },
-        info: {
-            main: '#2196f3',
-            light: '#64b5f6',
-            dark: '#1976d2',
-            contrastText: '#ffffff',
-        },
-        success: {
-            main: '#4caf50',
-            light: '#81c784',
-            dark: '#388e3c',
-            contrastText: '#ffffff',
-        },
+// 라이트 테마 정의
+const lightTheme = createTheme({
+  palette: {
+    mode: 'light',
+    primary: {
+      main: '#1976d2',
     },
+    background: {
+      default: '#ffffff',
+      paper: '#f5f5f5',
+    },
+    text: {
+      primary: '#000000',
+      secondary: '#666666',
+    },
+  },
 });
 
-export default theme;
+// 다크 테마 정의
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+    primary: {
+      main: '#90caf9',
+    },
+    background: {
+      default: '#121212',
+      paper: '#1e1e1e',
+    },
+    text: {
+      primary: '#ffffff',
+      secondary: '#b3b3b3',
+    },
+  },
+});
+
+export { lightTheme, darkTheme };

@@ -1,16 +1,21 @@
 import { useEffect } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
-import theme from '@/styles/theme';
+import { lightTheme, darkTheme } from '@/styles/theme';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import api from '@/apis';
-import { useSpellStore, useItemStore, useVersionStore, useChampionStore } from '@/hooks';
+import { useDarkModeStore, useSpellStore, useItemStore, useVersionStore, useChampionStore } from '@/hooks';
 
-import Test from '@/views/Test';
 import Spells from '@/views/Spells/Spells';
 import Items from '@/views/Items/Items';
 import Champions from '@/views/Champions/Champions';
+import Main from '@/views/Main';
+import Header from '@/components/Header';
+
+import Summoner from '@/views/Summoner/Summoner';
 
 const App = () => {
+  const { darkMode } = useDarkModeStore();
+  const theme = darkMode ? darkTheme : lightTheme;
   const setSpell = useSpellStore((state) => state.setSpell);
   const setItem = useItemStore((state) => state.setItem);
   const setVersion = useVersionStore((state) => state.setVersion);
@@ -45,65 +50,8 @@ const App = () => {
 
   useEffect(() => {
     fetchGameData();
-
-    // api
-    //   .getCurrentPatchVersion()
-    //   .then((data) => {
-    //     if (data) {
-    //       api.getSpellsInfo(data[0]).then((data: SpellType) => {
-    //         if (data.data) {
-    //           const tt = data.data;
-    //           console.log(tt);
-    //           // Object.keys(spells).forEach((key) => {
-    //           //   console.log(spells[key]);
-    //           // });
-    //         }
-    //       });
-
-    //       // api.getChampionsInfo(data[0]).then((data) => {
-    //       //   if (data) {
-    //       //     console.log(data);
-    //       //   }
-    //       // });
-    //     }
-    //   })
-    //   .finally(() => {
-    //     // setIsLoading(false);
-    //   });
-
-    // const userNickname = "썸데이들려드릴게요"
-    // const tagLine = "yhw"
-    // const encodedName = encodeURIComponent(userNickname)
-
-    // api
-    //   .getSummonerInfo(encodedName, tagLine)
-    //   .then((data) => {
-    //     if (data) {
-    //       console.log(data);
-
-    //       // setBuildings(data);
-    //     }
-    //   })
-    //   .finally(() => {
-    //     // setIsLoading(false);
-    //   });
-
-    // let data = [
-    //   { name: 'Comoros', code: 'KM' },
-    //   { name: 'Congo', code: 'CG' },
-    //   { name: 'Congo, The Democratic Republic of the', code: 'CD' },
-    //   { name: 'Cook Islands', code: 'CK' },
-    //   { name: 'Costa Rica', code: 'CR' },
-    //   { name: "Cote D'Ivoire", code: 'CI' },
-    //   { name: 'Croatia', code: 'HR' },
-    //   { name: 'Cuba', code: 'CU' },
-    //   { name: 'Cyprus', code: 'CY' },
-    // ];
-
-    // let search = 'om';
-    // let filterData = data.filter((item) => item.name == 'Congo');
-    // console.log(filterData);
   }, []);
+
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter
@@ -111,11 +59,13 @@ const App = () => {
           v7_startTransition: true,
           v7_relativeSplatPath: true,
         }}>
+        <Header />
         <Routes>
-          <Route path='/' element={<Test />} />
+          <Route path='/' element={<Main />} />
           <Route path='/spells' element={<Spells />} />
           <Route path='/items' element={<Items />} />
           <Route path='/champions' element={<Champions />} />
+          <Route path='/summoner/:summoner' element={<Summoner />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

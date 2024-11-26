@@ -148,13 +148,13 @@ interface ItemTree {
 }
 
 // 전체 아이템 데이터 인터페이스
-type ItemType = {
+interface ItemType {
   type: string;
   version: string;
   basic: BasicItem;
   data: { [key: number]: ItemData };
   groups: ItemGroup[];
   tree: ItemTree[];
-};
+}
 
 export { ItemType, ItemData };

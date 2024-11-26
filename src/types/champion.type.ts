@@ -59,11 +59,11 @@ interface ChampionData {
 }
 
 // 전체 챔피언 데이터 인터페이스
-type ChampionType = {
+interface ChampionType {
   type: string;
   format: string;
   version: string;
   data: { [key: string]: ChampionData };
-};
+}
 
 export { ChampionType, ChampionData };

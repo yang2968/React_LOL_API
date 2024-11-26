@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'NotoSansKR';
+    src: url('/fonts/NotoSansKR.ttf') format('truetype');
+  }
+
 #root {
     -ms-user-select: none;
     -moz-user-select: none;
@@ -10,5 +15,8 @@
 html,
 body,
 #root {
-    height: 100%;
+//   min-width: 1200px;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }

@@ -2,8 +2,10 @@ import { useEffect, useState } from 'react';
 import { Box, Typography, Button, TextField, Select, MenuItem, FormControl, Stack } from '@mui/material';
 import { useVersionStore, useSpellStore } from '@/hooks';
 import { SpellDataType } from '@/types/spell.type';
+import { useTheme } from '@mui/material/styles';
 
 const Spell = () => {
+  const theme = useTheme();
   const version = useVersionStore((state) => state.version);
   const spellData = useSpellStore((state) => state.spell);
 
@@ -32,11 +34,11 @@ const Spell = () => {
   }, [spellData]);
 
   return (
-    <Stack>
+    <Stack gap={1} sx={{ color: theme.palette.text.primary }}>
       {spells ? (
         Object.keys(spells).map((spell) => {
           return (
-            <Stack key={spell}>
+            <Stack key={spell} direction='row' sx={{ alignItems: 'center' }} gap={1}>
               <img
                 style={{ width: '50px', height: '50px' }}
                 src={`${import.meta.env.VITE_DATA_DRAGON_URL}/cdn/${version}/img/spell/${spells[spell].id}.png`}

@@ -1,13 +1,13 @@
 // 스펠 정보 타입
-type SpellType = {
+interface SpellType {
   type: string;
   version: string;
   data: {
     [key: string]: SpellDataType;
   };
-};
+}
 
-type SpellDataType = {
+interface SpellDataType {
   id: string;
   name: string;
   description: string;
@@ -38,6 +38,6 @@ type SpellDataType = {
     h: number;
   };
   resource: string;
-};
+}
 
 export { SpellType, SpellDataType };
