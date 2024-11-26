@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Tabs, Tab, Stack, Box, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import Home from './Tabs/Home/Home';
-
+import { useTheme } from '@mui/material/styles';
 import TabPanel from '@components/TabPanel';
 
 import Spells from '@/views/Spells/Spells';
@@ -11,7 +11,7 @@ import Champions from '@/views/Champions/Champions';
 
 const Main = () => {
   const navigate = useNavigate();
-
+  const theme = useTheme();
   const [value, setValue] = useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -22,7 +22,7 @@ const Main = () => {
   // }, [navigate]);
 
   return (
-    <Stack>
+    <Stack sx={{ backgroundColor: theme.palette.background.default }}>
       <Tabs value={value} onChange={handleChange} textColor='primary' indicatorColor='primary'>
         {value === -1 && <Tab value={-1} label='NoSelect' sx={{ display: 'none' }} />}
         <Tab value={0} label='홈' />

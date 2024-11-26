@@ -10,6 +10,12 @@ const SearchSummoner = () => {
   const [player, setPlayer] = useState<string>('');
   const [tagline, setTagline] = useState<string>('');
 
+  const checkEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSearch(player, tagline);
+    }
+  };
+
   const handleSearch = (player: string, tagline: string) => {
     if (player.length === 0 && tagline.length === 0) {
       alert('플레이어와 태그라인을 입력해주세요.');
@@ -35,7 +41,7 @@ const SearchSummoner = () => {
   return (
     <Stack gap={1}>
       <StyledTextField label='플레이어' size='small' value={player} onChange={(e) => setPlayer(e.target.value)} />
-      <StyledTextField label='태그라인' size='small' value={tagline} onChange={(e) => setTagline(e.target.value)} />
+      <StyledTextField label='태그라인' size='small' value={tagline} onChange={(e) => setTagline(e.target.value)} onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => checkEnter(e)} />
       <Button sx={{ width: '200px' }} variant='contained' onClick={() => handleSearch(player, tagline)}>
         {'소환사 찾기'}
       </Button>

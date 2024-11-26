@@ -13,7 +13,7 @@ const TabPanel = (props: TabPanelProps) => {
   const theme = useTheme();
   return (
     <Box
-      sx={{ width: '1200px', backgroundColor: theme.palette.background.default }}
+      sx={{ width: '1200px' }}
       role='tabpanel'
       hidden={value !== index}
       id={`tabpanel-${index}`}
